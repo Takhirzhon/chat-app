@@ -13,7 +13,6 @@ class FirebaseService {
   Future<void> sendMessage(String message, String userId) async {
     await _db.collection('chats').add({
       'text': message,
-      'userId': userId,
       'timestamp': FieldValue.serverTimestamp(),
     });
   }

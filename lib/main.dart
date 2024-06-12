@@ -1,7 +1,6 @@
 import 'package:firebase_core/firebase_core.dart';
 import 'package:flutter/material.dart';
 import 'screens/chat_screen.dart';
-import 'screens/login_screen.dart';
 import 'firebase_options.dart';
 
 void main() async {
@@ -22,7 +21,6 @@ class MyApp extends StatelessWidget {
       ),
       initialRoute: '/login',
       routes: {
-        '/login': (context) => LoginScreen(),
         '/chat': (context) => ChatScreen(),
       },
     );

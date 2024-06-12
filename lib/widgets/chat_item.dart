@@ -11,7 +11,7 @@ class ChatItem extends StatelessWidget {
     return ListTile(
       leading: CircleAvatar(
         backgroundColor: Colors.blue,
-        child: Text(chat.initials, style: TextStyle(color: Colors.white)),
+        child: Text(chat.initials, style: TextStyle(color: Colors.black)),
       ),
       title: Text(chat.name),
       subtitle: Text(chat.lastMessage),
