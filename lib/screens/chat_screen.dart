@@ -5,7 +5,22 @@ import '../widgets/chat_item.dart';
 import '../widgets/search_bar.dart';
 import '../models/chat_model.dart';
 
-class ChatScreen extends StatelessWidget {
+class ChatScreen extends StatefulWidget {
+  @override
+  _ChatScreenState createState() => _ChatScreenState();
+}
+
+class _ChatScreenState extends State<ChatScreen> {
+  final FirebaseService _firebaseService = FirebaseService();
+  final TextEditingController _messageController = TextEditingController();
+
+  void _sendMessage() {
+    if (_messageController.text.isNotEmpty) {
+      _firebaseService.sendMessage(_messageController.text, 'userId');
+      _messageController.clear();
+    }
+  }
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -14,12 +29,28 @@ class ChatScreen extends StatelessWidget {
       ),
       body: Column(
         children: [
-            
           Expanded(
             child: StreamProvider<List<ChatModel>>.value(
-              value: FirebaseService().getChats(),
+              value: _firebaseService.getChats(),
               initialData: [],
               child: ChatList(),
+            ),
+          ),
+          Padding(
+            padding: const EdgeInsets.all(8.0),
+            child: Row(
+              children: [
+                Expanded(
+                  child: TextField(
+                    controller: _messageController,
+                    decoration: InputDecoration(hintText: 'Type a message'),
+                  ),
+                ),
+                IconButton(
+                  icon: Icon(Icons.send),
+                  onPressed: _sendMessage,
+                ),
+              ],
             ),
           ),
         ],
